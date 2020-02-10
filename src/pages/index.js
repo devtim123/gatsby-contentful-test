@@ -18,11 +18,11 @@ class RootIndex extends React.Component {
           <Helmet title={siteTitle} />
           <Hero data={author.node} />
           <div className="wrapper">
-            <h2 className="section-headline">Recent articles</h2>
+            <h2 className="section-headline">Recent articles #yolo</h2>
             <ul className="article-list">
-              {posts.map(({ node }) => {
+              {posts.map(({ node }, id) => {
                 return (
-                  <li key={node.slug}>
+                  <li key={id}>
                     <ArticlePreview article={node} />
                   </li>
                 )
