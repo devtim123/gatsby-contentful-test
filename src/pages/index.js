@@ -1,5 +1,5 @@
 import React from 'react'
-import { graphql } from 'gatsby'
+import {graphql} from 'gatsby'
 import get from 'lodash/get'
 import Helmet from 'react-helmet'
 import Hero from '../components/hero'
@@ -9,21 +9,23 @@ import ArticlePreview from '../components/article-preview'
 class RootIndex extends React.Component {
   render() {
     const siteTitle = get(this, 'props.data.site.siteMetadata.title')
-    const posts = get(this, 'props.data.allContentfulBlogPost.edges')
+    const posts = get(this, 'props.data.allRecipes.nodes')
     const [author] = get(this, 'props.data.allContentfulPerson.edges')
+
+    console.log(posts);
 
     return (
       <Layout location={this.props.location}>
-        <div style={{ background: '#fff' }}>
-          <Helmet title={siteTitle} />
-          <Hero data={author.node} />
+        <div style={{background: '#fff'}}>
+          <Helmet title={siteTitle}/>
+          <Hero data={author.node}/>
           <div className="wrapper">
             <h2 className="section-headline">Recent articles #yolo</h2>
             <ul className="article-list">
-              {posts.map(({ node }, id) => {
+              {posts.map((node, id) => {
                 return (
                   <li key={id}>
-                    <ArticlePreview article={node} />
+                    <ArticlePreview article={node}/>
                   </li>
                 )
               })}
@@ -57,6 +59,13 @@ export const pageQuery = graphql`
             }
           }
         }
+      }
+    }
+    allRecipes {
+      nodes {
+        title
+        publishDate: createdAt
+        description: instructions
       }
     }
     allContentfulPerson(
